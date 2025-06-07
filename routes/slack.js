@@ -3,7 +3,7 @@ const slackAPI = require('../utils/slackClient');
 
 const router = express.Router();
 
-const CHANNEL_ID = 'C09154DU5Q8'; // Replace with your actual channel ID
+const CHANNEL_ID = 'C09154DU5Q8';
 
 // Send an instant message
 router.post('/send', async (req, res) => {
@@ -23,10 +23,10 @@ router.post('/send', async (req, res) => {
 router.post('/schedule', async (req, res) => {
   let { text, post_at } = req.body;
 
-  // If post_at is not provided or is in the past, default to 5 mins in future
-  const currentTimestamp = Math.floor(Date.now() / 1000); // current time in seconds
+  
+  const currentTimestamp = Math.floor(Date.now() / 1000); 
   if (!post_at || post_at <= currentTimestamp) {
-    post_at = currentTimestamp + 5 * 60; // 5 minutes in the future
+    post_at = currentTimestamp + 5 * 60;
   }
 
   try {
