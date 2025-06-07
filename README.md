@@ -1,131 +1,179 @@
-## Slack Messaging App
-A Node.js application to interact with Slack's API, allowing users to authenticate via Slack OAuth, send messages, schedule messages, retrieve message history, edit messages, and delete messages in a specified Slack channel.
-Table of Contents
+# 🚀 Slack Messaging App
 
-### Project Overview
-Prerequisites
-Setup Instructions
-File Structure
-Usage
-Testing with Postman
-Expected Output
-License
+A Node.js application that integrates with the Slack API, enabling you to:
+- Authenticate using Slack OAuth
+- Send and schedule messages
+- Retrieve message history
+- Edit and delete messages
 
-## Project Overview
-This project is a RESTful API built with Node.js and Express, integrated with the Slack API to perform the following operations:
+> 🧪 Tested using the Slack Developer Sandbox and Postman.
 
-Authenticate via Slack OAuth
-Send messages to a Slack channel
-Schedule messages for future delivery
-Retrieve message history
-Edit existing messages
-Delete messages
+---
 
-The app uses the Slack Developer Sandbox for testing and requires a Slack App configuration.
-Prerequisites
+## 📋 Table of Contents
 
-Node.js (v16 or higher)
-npm (v8 or higher)
-Slack Workspace (for testing in Slack Developer Sandbox)
-Postman (for testing API endpoints)
-Slack App credentials (Client ID, Client Secret, Bot Token, Signing Secret)
+- [Project Overview](#project-overview)
+- [Prerequisites](#prerequisites)
+- [Setup Instructions](#setup-instructions)
+- [Slack App Configuration](#slack-app-configuration)
+- [Start the Server](#start-the-server)
+- [Usage](#usage)
+- [API Testing (Postman)](#api-testing-postman)
+  - [Send a Message](#send-a-message)
+  - [Schedule a Message](#schedule-a-message)
+  - [Edit a Message](#edit-a-message)
+  - [Delete a Message](#delete-a-message)
+- [License](#license)
 
-## Setup Instructions
+---
 
-Create the Project Directory
-mkdir slack-messaging-app && cd slack-messaging-app
-npm init -y
-npm install express axios dotenv body-parser
+## 📖 Project Overview
 
+This project is a RESTful API built with **Node.js** and **Express**, leveraging the **Slack API** to interact with messages in a Slack channel.
 
-Create .env FileIn the project root, create a .env file and add your Slack App credentials:
-SLACK_CLIENT_ID=your_client_id
-SLACK_CLIENT_SECRET=your_client_secret
-SLACK_BOT_TOKEN=xoxb-your-bot-token
-SLACK_SIGNING_SECRET=your-signing-secret
-REDIRECT_URI=http://localhost:3000/slack/oauth_redirect
+---
 
+## 🔧 Prerequisites
 
-## Set Up Slack App
+Make sure you have the following installed:
 
-Go to Slack API Dashboard.
-Click Create New App > From scratch.
-Name your app (e.g., MessagingApp) and select your workspace.
-In OAuth & Permissions:
-Add redirect URI: http://localhost:3000/slack/oauth_redirect.
-Under Bot Token Scopes, add:chat:write
-chat:write.public
-channels:read
-groups:read
-im:read
-mpim:read
+- Node.js (v16 or above)
+- npm (v8 or above)
+- A Slack Workspace (with Developer Sandbox)
+- A registered Slack App with necessary credentials
+- Postman or Thunder Client (for API testing)
 
+---
 
+## ⚙️ Setup Instructions
 
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/your-username/slack-messaging-app.git
+   cd slack-messaging-app
+   ```
 
+2. **Install Dependencies**
+   ```bash
+   npm install express axios dotenv body-parser
+   ```
 
-## Start the Server
+3. **Create `.env` File**
+   Add the following to your `.env` file:
+   ```env
+   SLACK_CLIENT_ID=your_client_id
+   SLACK_CLIENT_SECRET=your_client_secret
+   SLACK_BOT_TOKEN=xoxb-your-bot-token
+   SLACK_SIGNING_SECRET=your-signing-secret
+   REDIRECT_URI=http://localhost:3000/slack/oauth_redirect
+   ```
+
+---
+
+## 🛠️ Slack App Configuration
+
+1. Go to [Slack API Dashboard](https://api.slack.com/apps)
+2. Click **Create New App** → **From scratch**
+3. Set a name (e.g., `MessagingApp`) and select your workspace
+4. Under **OAuth & Permissions**:
+   - Add Redirect URI: `http://localhost:3000/slack/oauth_redirect`
+   - Add the following Bot Token Scopes:
+     - `chat:write`
+     - `chat:write.public`
+     - `channels:read`
+     - `groups:read`
+     - `im:read`
+     - `mpim:read`
+
+---
+
+## ▶️ Start the Server
+
+```bash
 node server.js
+```
 
-You should see: 🚀 Server running on http://localhost:3000
+Server should now be running at:  
+**http://localhost:3000**
 
-Usage
+---
 
-Ensure the server is running (node server.js).
-Update the CHANNEL_ID in routes/slack.js with your Slack channel ID:
-In Slack, right-click a channel > More > Copy Channel ID.
+## 🧪 Usage
 
+Ensure your server is up and running.  
+Update your `CHANNEL_ID` in `routes/slack.js` with your Slack Channel ID.  
+You can get it by right-clicking the channel in Slack → **More** → **Copy Channel ID**
 
-Use Postman  to interact with the API endpoints.
+---
 
-## Testing with Postman / Thunder client
+## 📬 API Testing (Postman)
 
-### Send a Message
+### ✅ Send a Message
 
-Method: POST
-URL: http://localhost:3000/slack/send
-Body (JSON):{
-  "text": "Hello from Tejas!"
-}
+- **Method:** POST  
+- **URL:** `http://localhost:3000/slack/send`  
+- **Body (JSON):**
+  ```json
+  {
+    "text": "Hello from Tejas!"
+  }
+  ```
 
-![WhatsApp Image 2025-06-07 at 16 02 07_6f256009](https://github.com/user-attachments/assets/36e723a5-6132-47ec-9e80-5071ba822459)
+![Send Message](https://github.com/user-attachments/assets/36e723a5-6132-47ec-9e80-5071ba822459)
 
+---
 
+### ⏰ Schedule a Message
 
-### Schedule a Message
+- **Method:** POST  
+- **URL:** `http://localhost:3000/slack/schedule`  
+- **Body (JSON):**
+  ```json
+  {
+    "text": "Scheduled message from Tejas!",
+    "post_at": 1717800000
+  }
+  ```
 
-Method: POST
-URL: http://localhost:3000/slack/schedule
-Body (JSON):{
-  "text": "Scheduled message from Tejas!",
-  "post_at": 1717800000
-}
+![Schedule Message](https://github.com/user-attachments/assets/591f64e2-c61d-4fb9-b9dd-71166517cfe6)
 
-![WhatsApp Image 2025-06-07 at 16 10 47_0590654a](https://github.com/user-attachments/assets/591f64e2-c61d-4fb9-b9dd-71166517cfe6)
+---
 
+### ✏️ Edit a Message
 
-### Edit a Message
+- **Method:** POST  
+- **URL:** `http://localhost:3000/slack/edit`  
+- **Body (JSON):**
+  ```json
+  {
+    "ts": "1717740000.000300",
+    "text": "Updated Hello from Tejas!"
+  }
+  ```
 
-Method: POST
-URL: http://localhost:3000/slack/edit
-Body (JSON):{
-  "ts": "1717740000.000300",
-  "text": "Updated Hello from Tejas!"
-}
+![Edit Message](https://github.com/user-attachments/assets/10bdabe9-48ee-40ad-b90c-abccc75cc5a2)
 
+---
 
-![WhatsApp Image 2025-06-07 at 16 14 01_a97ac686](https://github.com/user-attachments/assets/10bdabe9-48ee-40ad-b90c-abccc75cc5a2)
+### 🗑️ Delete a Message
 
+- **Method:** POST  
+- **URL:** `http://localhost:3000/slack/delete`  
+- **Body (JSON):**
+  ```json
+  {
+    "ts": "1717740000.000300"
+  }
+  ```
 
+![Delete Message](https://github.com/user-attachments/assets/5cf8c3e8-428a-46d9-a261-f790e0186666)
 
-### Delete a Message
+---
 
-Method: POST
-URL: http://localhost:3000/slack/delete
-Body (JSON):{
-  "ts": "1717740000.000300"
-}
+## 📄 License
 
-![WhatsApp Image 2025-06-07 at 16 15 18_c2917f51](https://github.com/user-attachments/assets/5cf8c3e8-428a-46d9-a261-f790e0186666)
+This project is licensed under the [MIT License](LICENSE).
 
+---
 
+> Built with ❤️ by **Tejas Ambadas Khope**
